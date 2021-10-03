@@ -16,7 +16,12 @@ func main() {
 				time.Sleep(d)
 			}
 		}
-		fmt.Fprintf(w, "Hello, World")
+		num, ok := r.URL.Query()["num"]
+		if !ok {
+			num = []string{"-"}
+		}
+
+		fmt.Fprintf(w, "Hello World, %s.", num[0])
 	})
 	log.Println("Starting server...")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
